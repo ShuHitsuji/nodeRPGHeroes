@@ -1,4 +1,4 @@
-const Hero = require('../entities/hero');
+const HeroRepository = require('../repositories/heroRepository');
 
 class HeroController {
     create(req, res) {
@@ -9,8 +9,14 @@ class HeroController {
             attack: req.body.attack,
             defense: req.body.defense,
         };
-        const hero = new Hero(attributes);
 
+        const hero = HeroRepository.create(attributes);
+
+        res.send(JSON.stringify(hero));
+    }
+    get(req,res){
+        const id = req.params.id;
+        const hero = HeroRepository.get(id);
         res.send(JSON.stringify(hero));
     }
 }
