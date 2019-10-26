@@ -1,4 +1,5 @@
 const Hero = require('../entities/hero');
+const dbConfig = require('../config').db;
 
 class HeroRepository {
     constructor() {
@@ -15,6 +16,24 @@ class HeroRepository {
     get(id){
         return this.heroes[id];
     } 
+
+    getHeroTypes() {
+        MongoClient.connect(dbConfig.host, function (err, db){
+        if(err){
+            throw err;
+        }else{
+            console.log("connected");
+    
+            var dbo = db.db("herosRPG");
+            dbo.collection("heroTypes").find({}).toArray(function(err, result){
+                console.log("B")
+                console.log(result)
+                db.close();
+            });
+        }
+        console.log("A")
+    })
+    }
 }
 
 module.exports = new HeroRepository;
