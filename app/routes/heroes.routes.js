@@ -10,3 +10,4 @@ module.exports = (app) => {
 	app.put('/heroes/:heroId', heroes.update);
 
 	app.delete('/heroes/:heroId', heroes.delete);
+};	
