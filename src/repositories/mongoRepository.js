@@ -10,7 +10,7 @@ function getHeroTypes() {
         throw err;
     }else{
         console.log("connected");
-        var dbo = db.db("herosRPG");
+        var dbo = db.db(dbConfig.name);
         dbo.collection("heroTypes").find({}).toArray(function(err, result){
             if(err){
                 throw err;

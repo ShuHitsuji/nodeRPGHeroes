@@ -1,4 +1,5 @@
 const Hero = require('../entities/hero');
+const dbConfig = require('../config').db;
 
 class HeroRepository {
     constructor() {
@@ -17,7 +18,7 @@ class HeroRepository {
     } 
 
     getHeroTypes() {
-        MongoClient.connect('mongodb://localhost:27017', function (err, db){
+        MongoClient.connect(dbConfig.host, function (err, db){
         if(err){
             throw err;
         }else{
