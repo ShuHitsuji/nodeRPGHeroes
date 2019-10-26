@@ -9,4 +9,7 @@ app.post('/api/hero', HeroController.create);
 app.get('/api/hero/:id',HeroController.get);
 
 const port = 3000;
+
+require('./app/routes/heroes.routes.js')(app);
+
 app.listen(port, () => console.log("it's alive!!!"));
