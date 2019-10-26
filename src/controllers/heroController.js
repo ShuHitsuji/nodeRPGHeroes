@@ -14,17 +14,31 @@ class HeroController {
 
         res.send(JSON.stringify(hero));
     }
+
+    async getTypes(req,res){
+        try {
+            const data =  await HeroRepository.getHeroTypes()
+            res.send(JSON.stringify({types: data}));
+        } catch(e) {
+            console.error("El error: ", e)
+            res.send({message: "Error"})
+        }
+    }
+
     get(req,res){
         const id = req.params.id;
         const hero = HeroRepository.get(id);
         res.send(JSON.stringify(hero));
     }
+
     getAll(req, res){
         
     }
+
     update(req, res){
 
     }
+
     delete(req, res){
 
     };
