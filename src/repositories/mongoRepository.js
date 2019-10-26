@@ -18,7 +18,6 @@ function getHeroTypes() {
                 console.log(result)
                 db.close();
             }
-            
         });
     }
 })
