@@ -1,4 +1,5 @@
 const Hero = require('../entities/hero');
+const MongoClient = require('mongodb').MongoClient;
 const dbConfig = require('../config').db;
 
 class HeroRepository {
@@ -9,7 +10,6 @@ class HeroRepository {
     create(attributes) {
         const hero = new Hero(attributes);
         this.heroes[hero.id] = hero;
-        console.log("heroes", this.heroes)
         return hero;
     }
 
@@ -17,20 +17,21 @@ class HeroRepository {
         return this.heroes[id];
     } 
 
-    getHeroTypes() {
-        MongoClient.connect(dbConfig.host, function (err, db){
-        if(err){
-            throw err;
-        }else{
-            console.log("connected");
-    
-            var dbo = db.db(dbConfig.name);
+    async getHeroTypes() {
+        const db = await MongoClient.connect(dbConfig.host, { useUnifiedTopology: true });
+        const dbo = db.db(dbConfig.name);
+
+        return new Promise((resolve, reject) => {
+
             dbo.collection("heroTypes").find({}).toArray(function(err, result){
-                console.log(result)
+                if(err) {
+                    reject(err)
+                } else {
+                    resolve(result)
+                }
                 db.close();
             });
-        }
-    })
+        })
     }
 }
 

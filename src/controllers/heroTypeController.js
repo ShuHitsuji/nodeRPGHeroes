@@ -1,9 +1,14 @@
 const HeroRepository = require('../repositories/heroRepository');
 
 class HeroTypeController {
-    getAll(req,res){
-        const types = HeroRepository.getHeroTypes();
-        res.send(JSON.stringify(types));
+     async getAll(req,res){
+        try {
+            const data =  await HeroRepository.getHeroTypes()
+            res.send(JSON.stringify({types: data}));
+        } catch(e) {
+            console.error("El error: ", e)
+            res.send({message: "Error"})
+        }
     }
 }
 
