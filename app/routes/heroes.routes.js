@@ -1,6 +1,7 @@
-module.exports = (app) => {
-	const heroes = require('../controllers/heroController.js');
+const heroes = require('../controllers/heroController.js');
 
+module.exports = (app) => {
+	
 	app.post('/heroes', heroes.create);
 
 	app.get('/heroes/list', heroes.getAll);
