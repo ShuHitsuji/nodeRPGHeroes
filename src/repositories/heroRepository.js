@@ -24,14 +24,12 @@ class HeroRepository {
         }else{
             console.log("connected");
     
-            var dbo = db.db("herosRPG");
+            var dbo = db.db(dbConfig.name);
             dbo.collection("heroTypes").find({}).toArray(function(err, result){
-                console.log("B")
                 console.log(result)
                 db.close();
             });
         }
-        console.log("A")
     })
     }
 }
