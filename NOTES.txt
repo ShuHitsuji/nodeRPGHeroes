@@ -1,0 +1,37 @@
+-crear y eliminar heroes
+-limite de heroes
+-poder solicitar tipos de heroe disponible
+-cada monstruo asociado a un stage
+-usuario jugador y usuario administrador
+
+-endpoints y postman: yo
+-controllers: guille
+-bd: damian
+-logica: axel
+
+-GETtear la lista
+-Introducis nombre y tipo
+-POSTeas la data
+-GETteas el heroe, sus atributos
+-Seleccionas un heroe
+-GETteas la lista de mapas
+-Seleccionas el mapa de la lista
+-En la url llamas al id del mapa, y subsiguiente llamas al controller "combate"
+-Termina el combate: -Si ganaste POSTeas el heroe mejorado, y: / -Si perdés, simplemente:
+-GETteas la lista de mapas
+-Seleccionas el mapa de la lista
+-Rinse and repeat
+
+-Rutas:
+
+*CASO DE USO: ENTRAR EN COMBATE*
+-GET api/heroes/list
+-POST api/heroes/create
+-GET api/heroes/list
+-GET api/stages/list
+-POST api/stages/:id/combat
+
+*CASO DE USO: COMBATE*
+-PUT api/heroes/:id [SI GANAS] / NADA [SI NO GANAS, VOLVES A LA LISTA DE MAPAS]
+-
+
