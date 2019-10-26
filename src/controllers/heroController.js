@@ -19,6 +19,15 @@ class HeroController {
         const hero = HeroRepository.get(id);
         res.send(JSON.stringify(hero));
     }
+    getAll(req, res){
+        
+    }
+    update(req, res){
+
+    }
+    delete(req, res){
+
+    };
 }
 
 module.exports = new HeroController;
