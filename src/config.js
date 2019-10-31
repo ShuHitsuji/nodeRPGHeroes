@@ -1,8 +1,8 @@
-
+const dbConnectionString = process.env.DB_CONNECTION_STRING || 'mongodb://localhost:27017';
 
 module.exports = {
     db: {
-        host: 'mongodb+srv://hero:heroMonster@heroesrpg-qzzra.mongodb.net/test?retryWrites=true&w=majority',
+        host: dbConnectionString,
         name: 'heroesRPG'
     }
 }
