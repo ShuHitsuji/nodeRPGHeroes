@@ -1,19 +1,18 @@
 const MongoClient = require('mongodb').MongoClient;
-const uri = 'mongodb+srv://hero:heroMonster@heroesrpg-qzzra.mongodb.net/test?retryWrites=true&w=majority'
+const dbConfig = require('../config').db;
 
-const client = new MongoClient(uri, {
+const client = new MongoClient(dbConfig.host, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
 const connection = function(callback) {
 
-
   return client.connect((err, client) => {
     if(err)
       throw err
 
-    const db = client.db('heroesRPG');
+    const db = client.db(dbConfig.name);
 
     callback(err, db)
 
