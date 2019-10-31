@@ -7,7 +7,7 @@ class HeroRepository {
     }
 
     create(attributes) {
-        const hero = new Hero(attributes);
+        const hero = new Hero(attributes.type, attributes.name);
         this.heroes[hero.id] = hero;
         return hero;
     }

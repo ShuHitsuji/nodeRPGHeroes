@@ -1,13 +1,15 @@
 const HeroRepository = require('../repositories/heroRepository');
+const HeroType = require('../entities/heroType');
 
 class HeroController {
     create(req, res) {
+        const type = HeroType[req.body.type];
+
         const attributes = {
-            type: req.body.type,
+            type,
             name: req.body.name,
-            health: req.body.health,
-            attack: req.body.attack,
-            defense: req.body.defense,
+            exp: req.body.exp,
+            level: req.body.level,
         };
 
         const hero = HeroRepository.create(attributes);
