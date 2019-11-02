@@ -4,16 +4,12 @@ const HeroType = require('../entities/heroType');
 class HeroController {
     create(req, res) {
         const type = HeroType[req.body.type];
-
         const attributes = {
             type,
-            name: req.body.name,
-            exp: req.body.exp,
-            level: req.body.level,
+            name: req.body.name
         };
 
         const hero = HeroRepository.create(attributes);
-
         res.send(JSON.stringify(hero));
     }
 

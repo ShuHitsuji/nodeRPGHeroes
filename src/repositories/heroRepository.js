@@ -2,18 +2,16 @@ const Hero = require('../entities/hero');
 const mongoClient = require('../services/mongoConnection');
 
 class HeroRepository {
-    constructor() {
-        this.heroes = {}
-    }
-
     create(attributes) {
-        const hero = new Hero(attributes.type, attributes.name);
-        this.heroes[hero.id] = hero;
-        return hero;
-    }
+        const hero = new Hero(attributes);
+        return mongoClient((err, dbo)=>{
+            try {
+                return dbo.collection("heroes").insertOne(hero);
 
-    get(id){
-        return this.heroes[id];
+            } catch (e) {
+                console.error(e)
+            }
+        })
     }
 
     async getHeroTypes() {
