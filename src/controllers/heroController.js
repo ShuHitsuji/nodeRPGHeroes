@@ -29,8 +29,9 @@ class HeroController {
         res.send(JSON.stringify(hero));
     }
 
-    getAll(req, res){
-        
+    async getAll(req, res){
+        const heroes = await HeroRepository.getAll();
+        res.send(JSON.stringify(heroes));
     }
 
     update(req, res){
