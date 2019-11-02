@@ -24,9 +24,14 @@ class HeroController {
     }
 
     async get(req,res){
-        const id = req.params.id;
-        const hero = await HeroRepository.get(id);
-        res.send(JSON.stringify(hero));
+        try {
+            const id = req.params.id;
+            const hero = await HeroRepository.get(id);
+            res.send(JSON.stringify(hero));
+        } catch(e) {
+            console.error(e)
+            res.sendStatus(500)
+        }
     }
 
     async getAll(req, res){
