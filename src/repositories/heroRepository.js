@@ -36,7 +36,7 @@ class HeroRepository {
         })
     }
 
-    async getHeroTypes() {
+    getHeroTypes() {
         return mongoClient( (err, dbo) => {
             try {
                 return dbo.collection("heroTypes").find({}).toArray();

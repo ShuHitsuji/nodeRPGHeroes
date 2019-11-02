@@ -23,14 +23,15 @@ class HeroController {
         }
     }
 
-    get(req,res){
+    async get(req,res){
         const id = req.params.id;
-        const hero = HeroRepository.get(id);
+        const hero = await HeroRepository.get(id);
         res.send(JSON.stringify(hero));
     }
 
-    getAll(req, res){
-        
+    async getAll(req, res){
+        const heroes = await HeroRepository.getAll();
+        res.send(JSON.stringify(heroes));
     }
 
     update(req, res){
