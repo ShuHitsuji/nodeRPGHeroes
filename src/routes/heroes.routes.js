@@ -6,7 +6,7 @@ module.exports = (app) => {
 
 	app.get('/heroes/types', heroes.getTypes);
 
-	app.get('/heroes/list', heroes.getAll);
+	app.get('/heroes', heroes.getAll);
 
 	app.get('/heroes/:heroId', heroes.get);
 

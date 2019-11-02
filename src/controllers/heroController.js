@@ -18,7 +18,7 @@ class HeroController {
             const data =  await HeroRepository.getHeroTypes()
             res.send(JSON.stringify({types: data}));
         } catch(e) {
-            console.error("El error: ", e)
+            console.error(e)
             res.send({message: "Error"})
         }
     }
@@ -30,7 +30,7 @@ class HeroController {
             res.send(JSON.stringify(hero));
         } catch(e) {
             console.error(e)
-            res.sendStatus(500)
+            res.send({message: "Error"})
         }
     }
 
@@ -39,12 +39,13 @@ class HeroController {
         res.send(JSON.stringify(heroes));
     }
 
-    delete(req, res){
+    async delete(req, res){
       try{
-        HeroRepository.delete(req.params.heroId);
+        await HeroRepository.delete(req.params.heroId);
         res.sendStatus(200);
       }catch(e){
         console.error(e);
+        res.send({message: "Error"})
       }
     };
 }

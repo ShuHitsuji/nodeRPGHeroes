@@ -1,5 +1,6 @@
 const Hero = require('../entities/hero');
 const mongoClient = require('../services/mongoConnection');
+const mongodb = require('mongodb');
 
 class HeroRepository {
     create(attributes) {
@@ -39,7 +40,7 @@ class HeroRepository {
     delete(id){
       return mongoClient((err,dbo)=>{
         try{
-          dbo.collection("heroes").deleteOne({id});
+          dbo.collection("heroes").deleteOne({_id: new mongodb.ObjectID(id)});
         }catch(e){
           console.error(e);
         }
