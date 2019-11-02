@@ -36,6 +36,16 @@ class HeroRepository {
         })
     }
 
+    delete(id){
+      return mongoClient((err,dbo)=>{
+        try{
+          dbo.collection("heroes").deleteOne({id});
+        }catch(e){
+          console.error(e);
+        }
+      })
+    }
+
     getHeroTypes() {
         return mongoClient( (err, dbo) => {
             try {

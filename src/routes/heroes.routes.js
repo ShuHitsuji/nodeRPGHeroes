@@ -10,7 +10,5 @@ module.exports = (app) => {
 
 	app.get('/heroes/:heroId', heroes.get);
 
-	app.put('/heroes/:heroId', heroes.update);
-
 	app.delete('/heroes/:heroId', heroes.delete);
 };	

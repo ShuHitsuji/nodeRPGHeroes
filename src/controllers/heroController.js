@@ -39,12 +39,13 @@ class HeroController {
         res.send(JSON.stringify(heroes));
     }
 
-    update(req, res){
-
-    }
-
     delete(req, res){
-
+      try{
+        HeroRepository.delete(req.params.heroId);
+        res.sendStatus(200);
+      }catch(e){
+        console.error(e);
+      }
     };
 }
 
