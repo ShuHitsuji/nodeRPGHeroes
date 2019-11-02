@@ -14,6 +14,17 @@ class HeroRepository {
         })
     }
 
+    getAll(){
+        return mongoClient((err, dbo)=>{
+            try {
+                return dbo.collection("heroes").find({}).toArray();
+
+            } catch (e) {
+                console.error(e)
+            }
+        })
+    }
+
     async getHeroTypes() {
         return mongoClient( (err, dbo) => {
             try {
