@@ -8,7 +8,7 @@ module.exports = (app) => {
 
 	app.get('/monsters/:monsterId', monsters.get);
 
-    app.put('/monsters/:monsterId', monsters.updatemonsters);
+    app.put('/monsters/:monsterId', monsters.update);
     
 	app.delete('/monsters/:monsterId', monsters.delete);
 };

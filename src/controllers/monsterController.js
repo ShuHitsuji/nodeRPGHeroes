@@ -38,4 +38,4 @@ class MonsterController {
     };
 }
 
-module.exports = new HeroController;
+module.exports = new MonsterController;
