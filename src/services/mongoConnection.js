@@ -8,15 +8,18 @@ const client = new MongoClient(dbConfig.host, {
 
 const connection = function(callback) {
 
-  return client.connect((err, client) => {
-    if(err)
-      throw err
+  return new Promise((resolve, reject) => {
 
-    const db = client.db(dbConfig.name);
+    client.connect((err, client) => {
+      if(err) {
+        reject(err)
+      }
 
-    callback(err, db)
+      const db = client.db(dbConfig.name);
+      resolve(callback(err, db))
 
-    client.close()
+      client.close()
+    })
   })
 };
 

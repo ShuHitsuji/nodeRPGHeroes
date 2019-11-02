@@ -17,15 +17,12 @@ class HeroRepository {
     }
 
     async getHeroTypes() {
-        return new Promise((resolve, reject) => {
-            mongoClient(async (err, dbo) => {
-                try {
-                    const types = await dbo.collection("heroTypes").find({}).toArray();
-                    resolve(types)
-                } catch (e) {
-                    reject(e)
-                }
-            })
+        return mongoClient( (err, dbo) => {
+            try {
+                return dbo.collection("heroTypes").find({}).toArray();
+            } catch (e) {
+                console.error(e)
+            }
         })
     }
 }
