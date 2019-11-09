@@ -4,16 +4,12 @@ const HeroType = require('../entities/heroType');
 class HeroController {
     create(req, res) {
         const type = HeroType[req.body.type];
-
         const attributes = {
             type,
-            name: req.body.name,
-            exp: req.body.exp,
-            level: req.body.level,
+            name: req.body.name
         };
 
         const hero = HeroRepository.create(attributes);
-
         res.send(JSON.stringify(hero));
     }
 
@@ -22,27 +18,35 @@ class HeroController {
             const data =  await HeroRepository.getHeroTypes()
             res.send(JSON.stringify({types: data}));
         } catch(e) {
-            console.error("El error: ", e)
+            console.error(e)
             res.send({message: "Error"})
         }
     }
 
-    get(req,res){
-        const id = req.params.id;
-        const hero = HeroRepository.get(id);
-        res.send(JSON.stringify(hero));
+    async get(req,res){
+        try {
+            const id = req.params.id;
+            const hero = await HeroRepository.get(id);
+            res.send(JSON.stringify(hero));
+        } catch(e) {
+            console.error(e)
+            res.send({message: "Error"})
+        }
     }
 
-    getAll(req, res){
-        
+    async getAll(req, res){
+        const heroes = await HeroRepository.getAll();
+        res.send(JSON.stringify(heroes));
     }
 
-    update(req, res){
-
-    }
-
-    delete(req, res){
-
+    async delete(req, res){
+      try{
+        await HeroRepository.delete(req.params.heroId);
+        res.sendStatus(200);
+      }catch(e){
+        console.error(e);
+        res.send({message: "Error"})
+      }
     };
 }
 

@@ -1,8 +1,6 @@
-const uuid = require('uuid/v1');
 
 class Monster {
-    constructor({ type, name, health, attack, exp }) {
-        this.id = uuid();
+    constructor({ name, health, attack, exp }) {
         this.name = name;
         this.health = health;
         this.attack = attack;
@@ -10,4 +8,4 @@ class Monster {
     }
 };
 
-module.exports = Hero;
+module.exports = Monster;

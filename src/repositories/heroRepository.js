@@ -1,31 +1,59 @@
 const Hero = require('../entities/hero');
 const mongoClient = require('../services/mongoConnection');
+const mongodb = require('mongodb');
 
 class HeroRepository {
-    constructor() {
-        this.heroes = {}
+    create(attributes) {
+        const hero = new Hero(attributes);
+        return mongoClient((err, dbo)=>{
+            try {
+                return dbo.collection("heroes").insertOne(hero);
+
+            } catch (e) {
+                console.error(e)
+            }
+        })
     }
 
-    create(attributes) {
-        const hero = new Hero(attributes.type, attributes.name);
-        this.heroes[hero.id] = hero;
-        return hero;
+    getAll(){
+        return mongoClient((err, dbo)=>{
+            try {
+                return dbo.collection("heroes").find({}).toArray();
+
+            } catch (e) {
+                console.error(e)
+            }
+        })
     }
 
     get(id){
-        return this.heroes[id];
+        return mongoClient((err, dbo)=>{
+            try {
+                return dbo.collection("heroes").find({id}).toArray();
+
+            } catch (e) {
+                console.error(e)
+            }
+        })
     }
 
-    async getHeroTypes() {
-        return new Promise((resolve, reject) => {
-            mongoClient(async (err, dbo) => {
-                try {
-                    const types = await dbo.collection("heroTypes").find({}).toArray();
-                    resolve(types)
-                } catch (e) {
-                    reject(e)
-                }
-            })
+    delete(id){
+      return mongoClient((err,dbo)=>{
+        try{
+          dbo.collection("heroes").deleteOne({_id: new mongodb.ObjectID(id)});
+        }catch(e){
+          console.error(e);
+        }
+      })
+    }
+
+    getHeroTypes() {
+        return mongoClient( (err, dbo) => {
+            try {
+                return dbo.collection("heroTypes").find({}).toArray();
+            } catch (e) {
+                console.error(e)
+            }
         })
     }
 }

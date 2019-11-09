@@ -6,11 +6,9 @@ module.exports = (app) => {
 
 	app.get('/heroes/types', heroes.getTypes);
 
-	app.get('/heroes/list', heroes.getAll);
+	app.get('/heroes', heroes.getAll);
 
 	app.get('/heroes/:heroId', heroes.get);
-
-	app.put('/heroes/:heroId', heroes.update);
 
 	app.delete('/heroes/:heroId', heroes.delete);
 };	
