@@ -1,61 +1,55 @@
-const Hero = require('../entities/hero');
-const mongoClient = require('../services/mongoConnection');
-const mongodb = require('mongodb');
+const Hero = require('../entities/hero')
+const mongoClient = require('../services/mongoConnection')
+const mongodb = require('mongodb')
+const HeroType = require('../entities/heroType')
 
 class HeroRepository {
-    create(attributes) {
-        const hero = new Hero(attributes);
-        return mongoClient((err, dbo)=>{
-            try {
-                return dbo.collection("heroes").insertOne(hero);
+  create (mainAttributes) {
+    const typeAttributes = HeroType[mainAttributes.type]
 
-            } catch (e) {
-                console.error(e)
-            }
-        })
-    }
+    const hero = new Hero({
+      name: mainAttributes.name,
+      type: typeAttributes
+    })
 
-    getAll(){
-        return mongoClient((err, dbo)=>{
-            try {
-                return dbo.collection("heroes").find({}).toArray();
+    return mongoClient(async (err, dbo) => {
+      if (err) { throw err }
+      await dbo.collection('heroes').insertOne(hero)
 
-            } catch (e) {
-                console.error(e)
-            }
-        })
-    }
+      return hero
+    })
+  }
 
-    get(id){
-        return mongoClient((err, dbo)=>{
-            try {
-                return dbo.collection("heroes").find({id}).toArray();
+  getAll () {
+    return mongoClient((err, dbo) => {
+      if (err) { throw err }
 
-            } catch (e) {
-                console.error(e)
-            }
-        })
-    }
+      return dbo.collection('heroes').find({}).toArray()
+    })
+  }
 
-    delete(id){
-      return mongoClient((err,dbo)=>{
-        try{
-          dbo.collection("heroes").deleteOne({_id: new mongodb.ObjectID(id)});
-        }catch(e){
-          console.error(e);
-        }
-      })
-    }
+  get (id) {
+    return mongoClient((err, dbo) => {
+      if (err) { throw err }
 
-    getHeroTypes() {
-        return mongoClient( (err, dbo) => {
-            try {
-                return dbo.collection("heroTypes").find({}).toArray();
-            } catch (e) {
-                console.error(e)
-            }
-        })
-    }
+      return dbo.collection('heroes').find({ id }).toArray()
+    })
+  }
+
+  delete (id) {
+    return mongoClient((err, dbo) => {
+      if (err) { throw err }
+      dbo.collection('heroes').deleteOne({ _id: new mongodb.ObjectID(id) })
+    })
+  }
+
+  getHeroTypes () {
+    return mongoClient((err, dbo) => {
+      if (err) { throw err }
+
+      return dbo.collection('heroTypes').find({}).toArray()
+    })
+  }
 }
 
-module.exports = new HeroRepository;
+module.exports = new HeroRepository()

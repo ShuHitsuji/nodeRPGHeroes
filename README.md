@@ -19,18 +19,18 @@ If you don't configure a remote DB, by default *mongoDB* client will try to conn
 ## Testing endpoints
 
 ### List all endpoints
-curl -X GET http://localhost:3000/api \
+curl -X GET http://localhost:3000/api \\
   -H 'Content-Type: application/json'
 
 
 ### Get hero types
-curl -X GET \
+curl -X GET \\
   http://localhost:3000/api/heroes/types
   
 ### Create hero
-curl -X POST \
-  http://localhost:3000/api/heroes \
-  -H 'Content-Type: application/json' \
+curl -X POST \\
+  http://localhost:3000/api/heroes \\
+  -H 'Content-Type: application/json' \\
   -d ' {
         "type": "Mage",
         "name": "Megumin"
@@ -39,19 +39,19 @@ curl -X POST \
 Where `type` is a valid hero type
 
 ### List heroes
-curl -X GET \
-  http://localhost:3000/api/heroes/list \
+curl -X GET \\
+  http://localhost:3000/api/heroes/list \\
   -H 'Content-Type: application/json'
 
 ### Get hero
 curl -X GET \
-  http://localhost:3000/api/heroes/5dbde96e11d7d922b2867a61 \
+  http://localhost:3000/api/heroes/5dbde96e11d7d922b2867a61 \\
   -H 'Content-Type: application/json'
   
 Where `5dbde96e11d7d922b2867a61` is the hero `id`
   
 ### Delete hero
-curl -X DELETE \
+curl -X DELETE \\
   http://localhost:3000/api/heroes/5dbde96e11d7d922b2867a61 
 
 Where `5dbde96e11d7d922b2867a61` is the hero `id`
