@@ -1,14 +1,14 @@
 const monsters = require('../controllers/monsterController.js');
 
-module.exports = (app) => {
-	
-	app.post('/monsters', monsters.create);
+module.exports = (router) => {
 
-	app.get('/monsters', monsters.getAll);
+	router.post('/monsters', monsters.create);
 
-	app.get('/monsters/:monsterId', monsters.get);
+	router.get('/monsters', monsters.getAll);
 
-    app.put('/monsters/:monsterId', monsters.update);
-    
-	app.delete('/monsters/:monsterId', monsters.delete);
+	router.get('/monsters/:monsterId', monsters.get);
+
+	router.put('/monsters/:monsterId', monsters.update);
+
+	router.delete('/monsters/:monsterId', monsters.delete);
 };

@@ -1,14 +1,14 @@
 const heroes = require('../controllers/heroController.js');
 
-module.exports = (app) => {
-	
-	app.post('/heroes', heroes.create);
+module.exports = (router) => {
 
-	app.get('/heroes/types', heroes.getTypes);
+  router.post('/heroes', heroes.create);
 
-	app.get('/heroes', heroes.getAll);
+  router.get('/heroes/types', heroes.getTypes);
 
-	app.get('/heroes/:heroId', heroes.get);
+  router.get('/heroes', heroes.getAll);
 
-	app.delete('/heroes/:heroId', heroes.delete);
-};	
+  router.get('/heroes/:heroId', heroes.get);
+
+  router.delete('/heroes/:heroId', heroes.delete);
+}

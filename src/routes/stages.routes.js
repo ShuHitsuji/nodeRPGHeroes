@@ -1,16 +1,16 @@
 const stages = require('../controllers/stageController.js');
 
-module.exports = (app) => {
-	
-	app.post('/stages', stages.create);
+module.exports = (router) => {
 
-	app.get('/stages/list', stages.getAll);
+	router.post('/stages', stages.create);
 
-	app.get('/stages/:stageId', stages.get);
+	router.get('/stages/list', stages.getAll);
 
-	app.put('/stages/:stageId', stages.update);
+	router.get('/stages/:stageId', stages.get);
 
-	app.delete('/stages/:stageId', stages.delete);
+	router.put('/stages/:stageId', stages.update);
 
-	app.post('/stages/:stageId/combat', stages.combat)
-};	
+	router.delete('/stages/:stageId', stages.delete);
+
+	router.post('/stages/:stageId/combat', stages.combat)
+};
