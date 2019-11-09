@@ -1,6 +1,6 @@
 const Hero = require('../entities/hero')
 const mongoClient = require('../services/mongoConnection')
-const mongodb = require('mongodb')
+const mongoDB = require('mongodb')
 const HeroType = require('../entities/heroType')
 
 class HeroRepository {
@@ -32,14 +32,14 @@ class HeroRepository {
     return mongoClient((err, dbo) => {
       if (err) { throw err }
 
-      return dbo.collection('heroes').find({ id }).toArray()
+      return dbo.collection('heroes').findOne({ _id: new mongoDB.ObjectID(id) })
     })
   }
 
   delete (id) {
     return mongoClient((err, dbo) => {
       if (err) { throw err }
-      dbo.collection('heroes').deleteOne({ _id: new mongodb.ObjectID(id) })
+      dbo.collection('heroes').deleteOne({ _id: new mongoDB.ObjectID(id) })
     })
   }
 

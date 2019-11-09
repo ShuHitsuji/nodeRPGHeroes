@@ -29,7 +29,7 @@ class HeroController {
 
   async get (req, res) {
     try {
-      const id = req.params.id
+      const id = req.params.heroId
       const hero = await HeroRepository.get(id)
       res.send(JSON.stringify(hero))
     } catch (e) {
@@ -46,7 +46,7 @@ class HeroController {
   async delete (req, res) {
     try {
       await HeroRepository.delete(req.params.heroId)
-      res.sendStatus(200)
+      res.send({ deleted: true })
     } catch (e) {
       console.error(e)
       res.send({ message: 'Error' })

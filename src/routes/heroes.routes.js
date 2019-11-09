@@ -5,9 +5,9 @@ module.exports = (router) => {
 
   router.get('/heroes/types', heroes.getTypes)
 
-  router.get('/heroes', heroes.getAll)
-
   router.get('/heroes/:heroId', heroes.get)
+
+  router.get('/heroes', heroes.getAll)
 
   router.delete('/heroes/:heroId', heroes.delete)
 }
