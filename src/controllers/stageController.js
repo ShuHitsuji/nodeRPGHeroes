@@ -2,26 +2,28 @@ const StageService = require('../services/stageService')
 
 class StageController {
 
-  create (req, res) {
-    try{
-      const heroId = req.body.heroId;
-      const heroId = req.body.monsterId;
-      const stage = StageService.createStage(heroId, monsterId)
-      res.send(JSON.stringify(stage))
-    }catch(e){
-      console.error(e)
-      res.send({ message: 'Error' })
-    }
+  async create (req, res) {
+      try{
+        const heroId = req.body.heroId;
+        const monsterId = req.body.monsterId;
+        const stage = await StageService.createStage(heroId, monsterId)
+        res.send(JSON.stringify(stage));
+      }catch(e){
+        console.error(e)
+        res.send({ message: 'Error' })
+      }
   }
 
   async get (req, res) {
-    try {
-      const stage = StageService.getStage(req.stageId)
-      res.send(JSON.stringify(stage))
-    } catch (e) {
-      console.error(e)
-      res.send({ message: 'Error' })
-    }
+      try{
+        const id = req.params.stageId;
+        console.log(id)
+        const stage = await StageService.getStage(id)
+        res.send(JSON.stringify(stage));
+      }catch(e){
+        console.error(e)
+          res.send({ message: 'Error' })
+      }
   }
 
 };

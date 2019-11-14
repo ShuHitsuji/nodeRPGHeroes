@@ -8,6 +8,7 @@ app.use(express.json())
 
 require('./routes/heroes.routes.js')(router)
 require('./routes/monsters.routes.js')(router)
+require('./routes/stages.routes.js')(router)
 
 app.use('/api', router)
 router.get('/', (req, res) => { res.send(listEndpoints(app)) })

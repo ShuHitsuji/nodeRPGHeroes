@@ -5,16 +5,25 @@ const Stage = require('../entities/stage')
 
 class StageService {
 
-    createStage(heroId, monsterId){
-        const hero = HeroRepository.get(heroId);
-        const monster = MonsterRepository.get(monsterId);
-        const stage = await StageRepository.create(hero, monster)
-        return stage;
+    async createStage(heroId, monsterId){
+        try{
+            const hero = await HeroRepository.get(heroId);
+            const monster = await MonsterRepository.get(monsterId);
+            const stage = await StageRepository.create(hero, monster)
+            return stage
+        }catch(e){
+            throw e
+        }
+        
     }
 
-    getStage(stageId){
-        const stage = await StageRepository.get(stageId);
-        return stage;
+    async getStage(id){
+        try {
+            const stage = await StageRepository.get(id);
+            return stage;
+        }catch(e) {
+            throw e
+        }
     }
 }
 
