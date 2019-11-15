@@ -33,8 +33,18 @@ class StageController {
     }catch(e){
       console.error(e)
           res.send({ message: 'Error' })
+    } 
+  }
+
+  async delete (req, res) {
+    try {
+      const id = req.params.stageId;
+      await  StageService.deleteStage(id)
+      res.send({ deleted: true })
+    } catch (e) {
+      console.error(e)
+      res.send({ message: 'Error' })
     }
-    
   }
 
 

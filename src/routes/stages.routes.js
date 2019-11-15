@@ -9,7 +9,7 @@ module.exports = (router) => {
 
   //router.put('/stages/:stageId', stages.update)
 
-  //router.delete('/stages/:stageId', stages.delete)
+  router.delete('/stages/:stageId', stages.delete)
 
   //router.post('/stages/:stageId/combat', stages.combat)
 }

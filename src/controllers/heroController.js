@@ -51,7 +51,7 @@ class HeroController {
       console.error(e)
       res.send({ message: 'Error' })
     }
-  };
+  }
 }
 
 module.exports = new HeroController()

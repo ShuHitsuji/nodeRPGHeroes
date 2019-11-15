@@ -35,7 +35,15 @@ class StageService {
         }
     }
 
-    
+    async deleteStage(id){
+        try {
+            return await StageRepository.delete(id);
+        }catch(e) {
+            throw e
+        }
+    }
+
+
 }
 
 
