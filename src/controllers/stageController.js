@@ -26,6 +26,18 @@ class StageController {
       }
   }
 
+  async getAll (req, res) {
+    try{
+      const stages = await StageService.getAll()
+      res.send(JSON.stringify(stages))
+    }catch(e){
+      console.error(e)
+          res.send({ message: 'Error' })
+    }
+    
+  }
+
+
 };
 
 module.exports = new StageController()

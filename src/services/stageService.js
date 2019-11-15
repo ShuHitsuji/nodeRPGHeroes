@@ -25,6 +25,17 @@ class StageService {
             throw e
         }
     }
+
+    async getAll(){
+        try {
+            const stages = await StageRepository.getAll()
+            return stages;
+        }catch(e) {
+            throw e
+        }
+    }
+
+    
 }
 
 

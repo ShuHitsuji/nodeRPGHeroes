@@ -3,7 +3,7 @@ const stages = require('../controllers/stageController.js')
 module.exports = (router) => {
   router.post('/stages', stages.create)
 
-  //router.get('/stages/list', stages.getAll)
+  router.get('/stages', stages.getAll)
 
   router.get('/stages/:stageId', stages.get)
 
