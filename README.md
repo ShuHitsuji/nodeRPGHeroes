@@ -37,7 +37,7 @@ curl -X POST \
   http://localhost:3000/api/heroes \
   -H 'Content-Type: application/json' \
   -d '{
-        "type": "Mage",
+        "type": "mage",
         "name": "Megumin"
   }'
 ```

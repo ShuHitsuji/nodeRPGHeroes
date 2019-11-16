@@ -63,4 +63,4 @@ class HeroRepository {
   }
 }
 
-module.exports = new HeroRepository()
+module.exports = new HeroRepository();

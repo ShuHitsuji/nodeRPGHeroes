@@ -1,17 +1,17 @@
-const Stage = require('../entities/stage')
-const mongoClient = require('../services/mongoConnection')
-const mongoDB = require('mongodb')
+const Stage = require('../entities/stage');
+const mongoClient = require('../services/mongoConnection');
+const mongoDB = require('mongodb');
 
 class StageRepository {
   create(hero, monster) {
 
-    const stage = new Stage(hero, monster)
+    const stage = new Stage(hero, monster);
 
     return mongoClient(async (err, dbo) => {
       if (err) {
         throw err
       }
-      await dbo.collection('stages').insertOne(stage)
+      await dbo.collection('stages').insertOne(stage);
 
       return stage
     })
@@ -48,4 +48,4 @@ class StageRepository {
 
 }
 
-module.exports = new StageRepository()
+module.exports = new StageRepository();

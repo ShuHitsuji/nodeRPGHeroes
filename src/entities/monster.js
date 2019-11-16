@@ -5,6 +5,6 @@ class Monster {
     this.attack = attack;
     this.exp = exp;
   }
-};
+}
 
 module.exports = Monster;

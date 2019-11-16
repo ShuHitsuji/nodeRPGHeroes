@@ -1,7 +1,7 @@
-const MonsterRepository = require('../repositories/monsterRepository')
-const HeroRepository = require('../repositories/heroRepository')
-const StageRepository = require('../repositories/stageRepository')
-const Stage = require('../entities/stage')
+const MonsterRepository = require('../repositories/monsterRepository');
+const HeroRepository = require('../repositories/heroRepository');
+const StageRepository = require('../repositories/stageRepository');
+const Stage = require('../entities/stage');
 
 class StageService {
 
@@ -9,7 +9,7 @@ class StageService {
     try {
       const hero = await HeroRepository.get(heroId);
       const monster = await MonsterRepository.get(monsterId);
-      const stage = await StageRepository.create(hero, monster)
+      const stage = await StageRepository.create(hero, monster);
       return stage
     } catch (e) {
       throw e
@@ -28,7 +28,7 @@ class StageService {
 
   async getAll() {
     try {
-      const stages = await StageRepository.getAll()
+      const stages = await StageRepository.getAll();
       return stages;
     } catch (e) {
       throw e
@@ -47,4 +47,4 @@ class StageService {
 }
 
 
-module.exports = new StageService()
+module.exports = new StageService();

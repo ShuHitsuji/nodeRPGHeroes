@@ -1,8 +1,8 @@
 class Stage {
   constructor(hero, monster) {
-    this.hero = hero
+    this.hero = hero;
     this.monster = monster
   }
-};
+}
 
-module.exports = Stage
+module.exports = Stage;

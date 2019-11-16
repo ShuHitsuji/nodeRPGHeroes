@@ -1,16 +1,16 @@
-const Monster = require('../entities/monster')
-const mongoClient = require('../services/mongoConnection')
-const mongoDB = require('mongodb')
+const Monster = require('../entities/monster');
+const mongoClient = require('../services/mongoConnection');
+const mongoDB = require('mongodb');
 
 class MonsterRepository {
   create(attributes) {
-    const monster = new Monster(attributes)
+    const monster = new Monster(attributes);
 
     return mongoClient(async (err, dbo) => {
       if (err) {
         throw err
       }
-      await dbo.collection('monsters').insertOne(monster)
+      await dbo.collection('monsters').insertOne(monster);
 
       return monster
     })
@@ -46,4 +46,4 @@ class MonsterRepository {
   }
 }
 
-module.exports = new MonsterRepository()
+module.exports = new MonsterRepository();
