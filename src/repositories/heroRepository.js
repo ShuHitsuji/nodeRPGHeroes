@@ -1,22 +1,23 @@
-const Hero = require('../entities/hero')
-const mongoClient = require('../services/mongoConnection')
-const mongoDB = require('mongodb')
-const HeroType = require('../entities/heroType')
+const Hero = require('../entities/hero');
+const mongoClient = require('../services/mongoConnection');
+const mongoDB = require('mongodb');
+const toJson = require('../utils/toJson');
 
 class HeroRepository {
-  create(mainAttributes) {
-    const typeAttributes = HeroType[mainAttributes.type]
-
-    const hero = new Hero({
-      name: mainAttributes.name,
-      type: typeAttributes
-    })
-
+  create({name, type}) {
     return mongoClient(async (err, dbo) => {
       if (err) {
         throw err
       }
-      await dbo.collection('heroes').insertOne(hero)
+
+      const typeAttributes = await dbo.collection('heroTypes').findOne({keyname: type});
+
+      const hero = new Hero({
+        name,
+        type: typeAttributes
+      });
+
+      await dbo.collection('heroes').insertOne(toJson(hero));
 
       return hero
     })

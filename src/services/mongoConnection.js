@@ -16,7 +16,17 @@ const connection = function (callback) {
       const db = client.db(dbConfig.name)
       resolve(callback(err, db))
 
-      client.close()
+      const response = callback(err, db);
+      if (response instanceof Promise) {
+        response
+            .then((res) => {
+              client.close();
+              return res
+            })
+      } else {
+        resolve(callback);
+        client.close()
+      }
     })
   })
 }

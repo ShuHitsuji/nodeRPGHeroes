@@ -1,7 +1,11 @@
-const HeroType = Object.freeze({
-  Knight: {defense: 30, attack: 20, health: 220},
-  Mage: {defense: 30, attack: 20, health: 200},
-  Ranger: {defense: 30, attack: 20, health: 190}
-})
+class HeroType {
+  constructor({name ,keyname, defense, attack, health }) {
+    this.name = name;
+    this.keyname = keyname;
+    this.defense = defense;
+    this.attack = attack;
+    this.health = health
+  }
+}
 
-module.exports = HeroType
+module.exports = HeroType;
