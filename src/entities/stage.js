@@ -1,6 +1,5 @@
-
 class Stage {
-  constructor (hero, monster) {
+  constructor(hero, monster) {
     this.hero = hero
     this.monster = monster
   }

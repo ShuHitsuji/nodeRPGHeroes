@@ -1,7 +1,7 @@
 const MonsterRepository = require('../repositories/monsterRepository')
 
 class MonsterController {
-  create (req, res) {
+  create(req, res) {
     try {
       const attributes = {
         name: req.body.name,
@@ -14,37 +14,37 @@ class MonsterController {
       res.send(JSON.stringify(monster))
     } catch (e) {
       console.error(e)
-      res.send({ message: 'Error' })
+      res.send({message: 'Error'})
     }
   }
 
-  async get (req, res) {
+  async get(req, res) {
     try {
       const id = req.params.monsterId
       const monster = await MonsterRepository.get(id)
       res.send(JSON.stringify(monster))
     } catch (e) {
       console.error(e)
-      res.send({ message: 'Error' })
+      res.send({message: 'Error'})
     }
   }
 
-  async getAll (req, res) {
+  async getAll(req, res) {
     const monsters = await MonsterRepository.getAll()
     res.send(JSON.stringify(monsters))
   }
 
-  async update (req, res) {
+  async update(req, res) {
 
   }
 
-  async delete (req, res) {
+  async delete(req, res) {
     try {
       await MonsterRepository.delete(req.params.monsterId)
-      res.send({ deleted: true })
+      res.send({deleted: true})
     } catch (e) {
       console.error(e)
-      res.send({ message: 'Error' })
+      res.send({message: 'Error'})
     }
   };
 }

@@ -11,7 +11,10 @@ require('./routes/monsters.routes.js')(router)
 require('./routes/stages.routes.js')(router)
 
 app.use('/api', router)
-router.get('/', (req, res) => { res.send(listEndpoints(app)) })
+
+router.get('/', (req, res) => {
+  res.send(listEndpoints(app))
+})
 
 const port = 3000
 app.listen(port, () => console.log("it's alive!!!"))

@@ -1,6 +1,5 @@
-
 class Hero {
-  constructor ({ type, name }) {
+  constructor({type, name}) {
     this.name = name
     this.health = type.health
     this.attack = type.attack
