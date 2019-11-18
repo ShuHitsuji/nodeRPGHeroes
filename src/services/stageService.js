@@ -34,7 +34,7 @@ class StageService {
       const heroPower = hero.attack;
       const monsterLife = monster.health;
       if(heroPower> monsterLife){
-        this.updateHero(hero.id, monster.exp)
+        return this.updateHero(hero._id, monster.exp)
       }
     }catch(e){
       throw e
@@ -44,8 +44,9 @@ class StageService {
   async updateHero(id, exp){
     try {
       const hero = await HeroRepository.get(id);
-      this.gainExp(hero, exp); 
-      return await HeroRepository.update(id, hero)
+      console.log(hero)
+      const newHero = this.gainExp(hero, exp); 
+      return await HeroRepository.update(id, newHero)
     } catch (e) {
       throw e
     }
@@ -58,8 +59,9 @@ class StageService {
   gainExp(hero, amout){
     hero.exp += amout;
     if(hero.exp>= this.nextLevel(hero.level)){
-      this.lvlUp(hero);
+      hero = this.lvlUp(hero);
     }
+    return hero
   }
 
   lvlUp(hero){
@@ -67,6 +69,7 @@ class StageService {
     hero.health+=10;
     hero.attack+=10;
     hero.defense+=10;
+    return hero;
   }
 
   async getAll() {
