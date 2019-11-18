@@ -24,6 +24,19 @@ curl -X GET http://localhost:3000/api \
   -H 'Content-Type: application/json'
 ```
 
+### Users
+#### Create user
+```
+curl -X POST \
+  http://localhost:3000/api/register \
+  -H 'Content-Type: application/json' \
+  -d '{
+        "name": "Megumin",
+        "password": "archetype?",
+        "email": "megumi@gmail.com"
+  }'
+```
+
 ### Heroes
 #### Get hero types
 ```

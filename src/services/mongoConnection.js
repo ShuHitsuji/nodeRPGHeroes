@@ -21,7 +21,7 @@ const connection = function (callback) {
             .then((res) => {
               client.close();
               resolve(res)
-            }).catch(console.error)
+            }).catch(reject)
       } else {
         client.close();
         resolve(callback);
