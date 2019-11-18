@@ -31,9 +31,13 @@ class StageService {
       const stage = await StageRepository.get(id);
       const hero = stage.hero;
       const monster = stage.monster;
-      const heroPower = hero.attack;
-      const monsterLife = monster.health;
-      if(heroPower> monsterLife){
+
+      while(hero.health > 0 && monster.health > 0){
+        monster.health -= hero.attack;
+        if(monster.health > 0)
+          hero.health -= monster.attack;
+      }
+      if(hero.health > 0){
         return this.updateHero(hero._id, monster.exp)
       }
     }catch(e){
