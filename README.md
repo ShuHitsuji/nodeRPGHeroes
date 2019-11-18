@@ -106,4 +106,4 @@ curl -X DELETE \
   http://localhost:3000/api/monsters/5dc721df22e64e70d34bc94b 
 ```
 
-Where `5dc721df22e64e70d34bc94b` is the hero `id`
+Where `5dc721df22e64e70d34bc94b` is the monster `id`
