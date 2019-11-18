@@ -36,6 +36,14 @@ class HeroRepository {
     })
   }
 
+  update (id, data) {
+    return mongoClient((err, dbo) => {
+      if (err) { throw err }
+
+      return dbo.collection('heroes').update({ _id: new mongoDB.ObjectID(id) }, data)
+    })
+  }
+
   delete (id) {
     return mongoClient((err, dbo) => {
       if (err) { throw err }
