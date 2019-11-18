@@ -45,7 +45,7 @@ class StageService {
     try {
       const hero = await HeroRepository.get(id);
       this.gainExp(hero, exp); 
-      await HeroRepository.update(id, hero)
+      return await HeroRepository.update(id, hero)
     } catch (e) {
       throw e
     }
