@@ -49,7 +49,7 @@ class HeroRepository {
         throw err
       }
 
-      return dbo.collection('heroes').update({_id: new mongoDB.ObjectID(id)}, data)
+      return dbo.collection('heroes').updateOne( {_id: new mongoDB.ObjectID(id)}, { $set: {...data}})
     })
   }
 
