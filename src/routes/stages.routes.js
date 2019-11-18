@@ -11,5 +11,5 @@ module.exports = (router) => {
 
   router.delete('/stages/:stageId', stages.delete)
 
-  //router.post('/stages/:stageId/combat', stages.combat)
+  router.post('/stages/:stageId/combat', stages.combat)
 };

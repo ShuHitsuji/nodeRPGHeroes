@@ -26,6 +26,49 @@ class StageService {
     }
   }
 
+  async combat(id){
+    try{
+      const stage = await StageRepository.get(id);
+      const hero = stage.hero;
+      const monster = stage.monster;
+      const heroPower = hero.attack;
+      const monsterLife = monster.health;
+      if(heroPower> monsterLife){
+        this.updateHero(hero.id, monster.exp)
+      }
+    }catch(e){
+      throw e
+    }
+  }
+
+  async updateHero(id, exp){
+    try {
+      const hero = await HeroRepository.get(id);
+      this.gainExp(hero, exp); 
+      await HeroRepository.update(id, hero)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  nextLevel(level){
+    return Math.round((4 * (level ^ 3)) / 5)
+  }
+
+  gainExp(hero, amout){
+    hero.exp += amout;
+    if(hero.exp>= this.nextLevel(hero.level)){
+      this.lvlUp(hero);
+    }
+  }
+
+  lvlUp(hero){
+    hero.level+=1;
+    hero.health+=10;
+    hero.attack+=10;
+    hero.defense+=10;
+  }
+
   async getAll() {
     try {
       const stages = await StageRepository.getAll();

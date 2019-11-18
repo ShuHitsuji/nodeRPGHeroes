@@ -17,7 +17,6 @@ class StageController {
   async get(req, res) {
     try {
       const id = req.params.stageId;
-      console.log(id);
       const stage = await StageService.getStage(id);
       res.send(JSON.stringify(stage));
     } catch (e) {
@@ -47,6 +46,16 @@ class StageController {
     }
   }
 
+  async combat(req, res){
+    try {
+      const id = req.params.stageId;
+      const stage = await StageService.combat(id);
+      res.send(JSON.stringify(stage));
+    } catch (e) {
+      console.error(e);
+      res.send({message: 'Error'})
+    }
+  }
 
 }
 
