@@ -45,9 +45,11 @@ class HeroRepository {
 
   update(id, data) {
     return mongoClient((err, dbo) => {
-      if (err) { throw err }
+      if (err) {
+        throw err
+      }
 
-      return dbo.collection('heroes').update({ _id: new mongoDB.ObjectID(id) }, data)
+      return dbo.collection('heroes').update({_id: new mongoDB.ObjectID(id)}, data)
     })
   }
 
