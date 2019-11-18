@@ -20,11 +20,11 @@ const connection = function (callback) {
         response
             .then((res) => {
               client.close();
-              return res
-            })
+              resolve(res)
+            }).catch(console.error)
       } else {
+        client.close();
         resolve(callback);
-        client.close()
       }
     })
   })
