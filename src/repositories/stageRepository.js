@@ -1,18 +1,19 @@
-const Monster = require('../entities/monster');
+const Stage = require('../entities/stage');
 const mongoClient = require('../services/mongoConnection');
 const mongoDB = require('mongodb');
 
-class MonsterRepository {
-  create(attributes) {
-    const monster = new Monster(attributes);
+class StageRepository {
+  create(hero, monster) {
+
+    const stage = new Stage(hero, monster);
 
     return mongoClient(async (err, dbo) => {
       if (err) {
         throw err
       }
-      await dbo.collection('monsters').insertOne(monster);
+      await dbo.collection('stages').insertOne(stage);
 
-      return monster
+      return stage
     })
   }
 
@@ -22,7 +23,7 @@ class MonsterRepository {
         throw err
       }
 
-      return dbo.collection('monsters').find({}).toArray()
+      return dbo.collection('stages').find({}).toArray()
     })
   }
 
@@ -32,7 +33,7 @@ class MonsterRepository {
         throw err
       }
 
-      return dbo.collection('monsters').findOne({_id: new mongoDB.ObjectID(id)})
+      return dbo.collection('stages').findOne({_id: new mongoDB.ObjectID(id)})
     })
   }
 
@@ -41,9 +42,10 @@ class MonsterRepository {
       if (err) {
         throw err
       }
-      dbo.collection('monsters').deleteOne({_id: new mongoDB.ObjectID(id)})
+      dbo.collection('stages').deleteOne({_id: new mongoDB.ObjectID(id)})
     })
   }
+
 }
 
-module.exports = new MonsterRepository();
+module.exports = new StageRepository();

@@ -1,42 +1,49 @@
-const Hero = require('../entities/hero')
-const mongoClient = require('../services/mongoConnection')
-const mongoDB = require('mongodb')
-const HeroType = require('../entities/heroType')
+const Hero = require('../entities/hero');
+const mongoClient = require('../services/mongoConnection');
+const mongoDB = require('mongodb');
+const toJson = require('../utils/toJson');
 
 class HeroRepository {
-  create (mainAttributes) {
-    const typeAttributes = HeroType[mainAttributes.type]
-
-    const hero = new Hero({
-      name: mainAttributes.name,
-      type: typeAttributes
-    })
-
+  create({name, type}) {
     return mongoClient(async (err, dbo) => {
-      if (err) { throw err }
-      await dbo.collection('heroes').insertOne(hero)
+      if (err) {
+        throw err
+      }
+
+      const typeAttributes = await dbo.collection('heroTypes').findOne({keyname: type});
+
+      const hero = new Hero({
+        name,
+        type: typeAttributes
+      });
+
+      await dbo.collection('heroes').insertOne(toJson(hero));
 
       return hero
     })
   }
 
-  getAll () {
+  getAll() {
     return mongoClient((err, dbo) => {
-      if (err) { throw err }
+      if (err) {
+        throw err
+      }
 
       return dbo.collection('heroes').find({}).toArray()
     })
   }
 
-  get (id) {
+  get(id) {
     return mongoClient((err, dbo) => {
-      if (err) { throw err }
+      if (err) {
+        throw err
+      }
 
-      return dbo.collection('heroes').findOne({ _id: new mongoDB.ObjectID(id) })
+      return dbo.collection('heroes').findOne({_id: new mongoDB.ObjectID(id)})
     })
   }
 
-  update (id, data) {
+  update(id, data) {
     return mongoClient((err, dbo) => {
       if (err) { throw err }
 
@@ -44,20 +51,24 @@ class HeroRepository {
     })
   }
 
-  delete (id) {
+  delete(id) {
     return mongoClient((err, dbo) => {
-      if (err) { throw err }
-      dbo.collection('heroes').deleteOne({ _id: new mongoDB.ObjectID(id) })
+      if (err) {
+        throw err
+      }
+      dbo.collection('heroes').deleteOne({_id: new mongoDB.ObjectID(id)})
     })
   }
 
-  getHeroTypes () {
+  getHeroTypes() {
     return mongoClient((err, dbo) => {
-      if (err) { throw err }
+      if (err) {
+        throw err
+      }
 
       return dbo.collection('heroTypes').find({}).toArray()
     })
   }
 }
 
-module.exports = new HeroRepository()
+module.exports = new HeroRepository();

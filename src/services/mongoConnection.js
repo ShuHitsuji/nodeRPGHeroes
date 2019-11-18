@@ -1,10 +1,10 @@
-const MongoClient = require('mongodb').MongoClient
-const dbConfig = require('../config').db
+const MongoClient = require('mongodb').MongoClient;
+const dbConfig = require('../config').db;
 
 const client = new MongoClient(dbConfig.host, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-})
+});
 
 const connection = function (callback) {
   return new Promise((resolve, reject) => {
@@ -13,12 +13,21 @@ const connection = function (callback) {
         reject(err)
       }
 
-      const db = client.db(dbConfig.name)
-      resolve(callback(err, db))
+      const db = client.db(dbConfig.name);
 
-      client.close()
+      const response = callback(err, db);
+      if (response instanceof Promise) {
+        response
+            .then((res) => {
+              client.close();
+              return res
+            })
+      } else {
+        resolve(callback);
+        client.close()
+      }
     })
   })
-}
+};
 
-module.exports = connection
+module.exports = connection;
