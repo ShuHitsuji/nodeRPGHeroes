@@ -4,7 +4,6 @@ const mongoDB = require('mongodb');
 
 class StageRepository {
   create(hero, monster) {
-
     const stage = new Stage(hero, monster);
 
     return mongoClient(async (err, dbo) => {
@@ -28,12 +27,19 @@ class StageRepository {
   }
 
   get(id) {
-    return mongoClient((err, dbo) => {
+    return mongoClient(async (err, dbo) => {
       if (err) {
         throw err
       }
 
-      return dbo.collection('stages').findOne({_id: new mongoDB.ObjectID(id)})
+      const stage = await dbo.collection('stages').findOne({_id: new mongoDB.ObjectID(id) })
+
+      if (stage) {
+        const { hero, monster } = stage
+        return new Stage(hero, monster)
+      }
+
+      return null
     })
   }
 

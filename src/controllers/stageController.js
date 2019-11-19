@@ -50,13 +50,15 @@ class StageController {
     try {
       const id = req.params.stageId;
       const stage = await StageService.combat(id);
-      res.send(JSON.stringify(stage));
+
+      res.send(JSON.stringify({
+        stage
+      }));
     } catch (e) {
       console.error(e);
       res.send({message: 'Error'})
     }
   }
-
 }
 
 module.exports = new StageController();

@@ -3,6 +3,10 @@ class Stage {
     this.hero = hero;
     this.monster = monster
   }
+
+  setHero(hero) {
+    this.hero = hero
+  }
 }
 
 module.exports = Stage;

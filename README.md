@@ -107,3 +107,25 @@ curl -X DELETE \
 ```
 
 Where `5dc721df22e64e70d34bc94b` is the monster `id`
+
+### Combat
+
+#### Create combat
+```
+curl -X POST \
+  http://localhost:3000/api/stages \
+  -H 'Content-Type: application/json' \
+  -d '{
+        "heroId": 5331e07d99e9a0858e7d4fd,
+        "monsterId": 5dd31e07d99e9a0858e7da0f
+  }'
+```
+
+#### Do combat
+```
+curl -X POST \
+  http://localhost:3000/api/stages/5dd31e07d99e9a0858e7da0f/combat \
+  -H 'Content-Type: application/json'
+```
+
+

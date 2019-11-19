@@ -1,31 +1,23 @@
 const MongoClient = require('mongodb').MongoClient;
 const dbConfig = require('../config').db;
 
-const client = new MongoClient(dbConfig.host, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
 const connection = function (callback) {
+  const client = new MongoClient(dbConfig.host, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
   return new Promise((resolve, reject) => {
-    client.connect((err, client) => {
+    client.connect(async (err, client) => {
       if (err) {
         reject(err)
       }
-
       const db = client.db(dbConfig.name);
 
-      const response = callback(err, db);
-      if (response instanceof Promise) {
-        response
-            .then((res) => {
-              client.close();
-              resolve(res)
-            }).catch(console.error)
-      } else {
-        client.close();
-        resolve(callback);
-      }
+      const response = await callback(err, db);
+      client.close();
+
+      resolve(response)
     })
   })
 };

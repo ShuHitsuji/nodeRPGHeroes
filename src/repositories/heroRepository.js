@@ -39,17 +39,19 @@ class HeroRepository {
         throw err
       }
 
-      return dbo.collection('heroes').findOne({_id: new mongoDB.ObjectID(id)})
+      const result = dbo.collection('heroes').findOne({_id: new mongoDB.ObjectID(id)})
+
+      return result
     })
   }
 
   update(id, data) {
-    return mongoClient((err, dbo) => {
+    return mongoClient(async (err, dbo) => {
       if (err) {
         throw err
       }
 
-      return dbo.collection('heroes').updateOne( {_id: new mongoDB.ObjectID(id)}, { $set: {...data}})
+      return dbo.collection('heroes').updateOne({_id: new mongoDB.ObjectID(id)}, {$set: {...data}})
     })
   }
 
