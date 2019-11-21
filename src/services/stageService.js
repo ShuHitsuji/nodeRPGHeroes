@@ -26,13 +26,21 @@ class StageService {
   async combat (id) {
     try {
       const stage = await StageRepository.get(id)
-
+      const log = [];
       let hero = stage.hero
       const monster = stage.monster
 
       while (hero.health > 0 && monster.health > 0) {
         monster.health -= hero.attack
-        if (monster.health > 0) { hero.health -= monster.attack }
+        log.push("The hero deal " + hero.attack + " damage to the monster")
+        log.push("Monster current health: " + monster.health)
+
+        if (monster.health > 0) {
+           hero.health -= monster.attack;
+           log.push("The monster deal " + monster.attack + " damage to the hero") 
+           log.push("Hero current health: " + hero.health)
+          }
+          
       }
 
       let success = false
@@ -40,10 +48,11 @@ class StageService {
         hero = await this.updateHero(hero._id, monster.exp)
         success = true
       }
+      log.push(success ? "VICTORY!!!" : "DEFEAT")
 
       stage.setHero(hero)
 
-      return { success, stage }
+      return { success, stage, log }
     } catch (e) {
       throw e
     }
