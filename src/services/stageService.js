@@ -77,7 +77,8 @@ class StageService {
 
   gainExp (hero, amout) {
     hero.exp += amout
-    if (hero.exp >= this.nextLevel(hero.level)) {
+    while (hero.exp >= this.nextLevel(hero.level)) {
+      hero.exp -= this.nextLevel(hero.level)
       hero = this.lvlUp(hero)
     }
     return hero
