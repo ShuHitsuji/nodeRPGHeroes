@@ -1,19 +1,35 @@
 const HeroRepository = require('../repositories/heroRepository');
+const Joi = require('@hapi/joi');
+
+const heroCreateSchema = Joi.object({
+  name: Joi.string()
+    .alphanum()
+    .min(1)
+    .max(24)
+    .required(),
+  type: Joi.string()
+    .alphanum()
+    .min(1)
+    .valid("ranger", "knight", "mage")
+    .required()
+})
 
 class HeroController {
   async create(req, res) {
     try {
+
+      const value = await heroCreateSchema.validateAsync({ name: req.body.name, type: req.body.type });
+      
       const mainAttributes = {
         type: req.body.type,
         name: req.body.name
       };
 
       const hero = await HeroRepository.create(mainAttributes);
-
       res.send(JSON.stringify({created: true, hero}))
     } catch (e) {
-      console.error(e);
-      res.send({message: 'Error'})
+      //console.error(e);
+      res.send({created: false, message: e.details[0].message});       
     }
   }
 
@@ -22,7 +38,7 @@ class HeroController {
       const data = await HeroRepository.getHeroTypes();
       res.send(JSON.stringify({types: data}))
     } catch (e) {
-      console.error(e);
+      //console.error(e);
       res.send({message: 'Error'})
     }
   }
@@ -33,7 +49,7 @@ class HeroController {
       const hero = await HeroRepository.get(id);
       res.send(JSON.stringify(hero))
     } catch (e) {
-      console.error(e);
+      //console.error(e);
       res.send({message: 'Error'})
     }
   }
@@ -48,7 +64,7 @@ class HeroController {
       await HeroRepository.delete(req.params.heroId);
       res.send({deleted: true})
     } catch (e) {
-      console.error(e);
+      //console.error(e);
       res.send({message: 'Error'})
     }
   }

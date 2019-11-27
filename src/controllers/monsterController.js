@@ -1,8 +1,35 @@
 const MonsterRepository = require('../repositories/monsterRepository');
+const Joi = require('@hapi/joi');
+
+const monsterCreateSchema = Joi.object({
+  name: Joi.string()
+    .alphanum()
+    .min(1)
+    .max(24)
+    .required(),
+  health: Joi.number()
+    .integer()
+    .min(1)
+    .max(9999)
+    .positive()
+    .required(),
+  attack: Joi.number()
+    .integer()
+    .min(0)
+    .max(9999)
+    .required(),
+  exp: Joi.number()
+    .integer()
+    .min(0)
+    .max(9999)
+    .required() 
+})
 
 class MonsterController {
-  create(req, res) {
+  async create(req, res) {
     try {
+      const value = await monsterCreateSchema.validateAsync({ name: req.body.name, health: req.body.health, attack: req.body.attack, exp: req.body.exp });
+
       const attributes = {
         name: req.body.name,
         health: req.body.health,
@@ -11,10 +38,10 @@ class MonsterController {
       };
 
       const monster = MonsterRepository.create(attributes);
-      res.send(JSON.stringify(monster))
+      res.send(JSON.stringify({created: true, monster}))
     } catch (e) {
-      console.error(e);
-      res.send({message: 'Error'})
+      //console.error(e);
+      res.send({created: false, message: e.details[0].message});
     }
   }
 
@@ -24,7 +51,7 @@ class MonsterController {
       const monster = await MonsterRepository.get(id);
       res.send(JSON.stringify(monster))
     } catch (e) {
-      console.error(e);
+      //console.error(e);
       res.send({message: 'Error'})
     }
   }
@@ -43,7 +70,7 @@ class MonsterController {
       await MonsterRepository.delete(req.params.monsterId);
       res.send({deleted: true})
     } catch (e) {
-      console.error(e);
+      //console.error(e);
       res.send({message: 'Error'})
     }
   };
