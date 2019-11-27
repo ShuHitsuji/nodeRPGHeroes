@@ -87,9 +87,10 @@ class MonsterController {
   async update(req, res) {
     try {
       const id = req.params.monsterId;
-      const monster = await MonsterRepository.get(id);
+      const monster = await MonsterRepository.get(id)
       const nuMonster = req.body.monster;
-      monster = nuMonster;
+      monster = nuMonster
+      await MonsterRepository.update(id, monster);
       res.send(JSON.stringify({updated: true, monster}));
     } catch (e) {
       res.send({message: 'Error'})
