@@ -6,7 +6,6 @@ const Joi = require('@hapi/joi');
  */
 const monsterCreateSchema = Joi.object({
   name: Joi.string()
-    .alphanum()
     .min(1)
     .max(24)
     .required(),
@@ -82,14 +81,16 @@ class MonsterController {
 
   /**
    * Update a specific monster
-   * @param {monster: Monster object} req [your new Monster object]
+   * @param {monster: Monster object} req [your new Monster object, URL params must contain a valid Monster id]
    * @param {updated: boolean, monster: Monster object} res [updated Monster confirmation, updated Monster object]
    */
   async update(req, res) {
     try {
-      const nuMonster = req.body.monster;
-      this.monster = nuMonster;
-      res.send(JSON.stringify({updated: true, monster}));
+      const id = req.params.monsterId;
+      const monster = await MonsterRepository.get(id)
+      const nuMonster = req.body;
+      await MonsterRepository.update(id, nuMonster);
+      res.send(JSON.stringify({updated: true, nuMonster}));
     } catch (e) {
       res.send({message: 'Error'})
     }
