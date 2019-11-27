@@ -1,6 +1,9 @@
 const MonsterRepository = require('../repositories/monsterRepository');
 const Joi = require('@hapi/joi');
 
+/**
+ * Joi validation library schema for Monster creation-validation
+ */
 const monsterCreateSchema = Joi.object({
   name: Joi.string()
     .alphanum()
@@ -26,6 +29,12 @@ const monsterCreateSchema = Joi.object({
 })
 
 class MonsterController {
+
+  /**
+   * Create a new Monster object
+   * @param {name: String, health: Integer, attack: Integer, exp: Integer} req [Your monster's name, health, attack, and exp values]
+   * @param {created: boolean, monster: Monster object} res [new Monster creation confirmation, new Monster object]
+   */
   async create(req, res) {
     try {
       const value = await monsterCreateSchema.validateAsync({ name: req.body.name, health: req.body.health, attack: req.body.attack, exp: req.body.exp });
@@ -45,6 +54,11 @@ class MonsterController {
     }
   }
 
+  /**
+    * Get a specific monster
+    * @param {id: String} req [URL params must contain a valid Monster id]
+    * @param {monster: Monster object} res [Monster object with the specified id]
+  */
   async get(req, res) {
     try {
       const id = req.params.monsterId;
@@ -56,15 +70,36 @@ class MonsterController {
     }
   }
 
+  /**
+   * Get all monsters available
+   * @param {*} req [URL Path]
+   * @param {[Monster Object]} res [Array with all monsters currently available in repository]
+   */
   async getAll(req, res) {
     const monsters = await MonsterRepository.getAll();
     res.send(JSON.stringify(monsters))
   }
 
+  /**
+   * Update a specific monster
+   * @param {monster: Monster object} req [your new Monster object]
+   * @param {updated: boolean, monster: Monster object} res [updated Monster confirmation, updated Monster object]
+   */
   async update(req, res) {
-
+    try {
+      const nuMonster = req.body.monster;
+      this.monster = nuMonster;
+      res.send(JSON.stringify({updated: true, monster}));
+    } catch (e) {
+      res.send({message: 'Error'})
+    }
   }
 
+  /**
+   * Delete a specific monster
+   * @param {id: String} req [URL params must contain a valid Monster id]
+   * @param {deleted: boolean} res [deleted Monster object confirmation]
+   */
   async delete(req, res) {
     try {
       await MonsterRepository.delete(req.params.monsterId);

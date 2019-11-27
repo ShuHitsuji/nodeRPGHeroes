@@ -1,18 +1,18 @@
 const heroes = require('../controllers/heroController.js');
 
 module.exports = (router) => {
-  //HERO-CREATION ROUTE
+  /** HERO-CREATION ROUTE */
   router.post('/heroes', heroes.create);
 
-  //HERO TYPE-COLLECTION FETCHING ROUTE
+  /** HERO TYPE-COLLECTION FETCHING ROUTE */
   router.get('/heroes/types', heroes.getTypes);
 
-  //HERO-FETCHING ROUTE
+  /** HERO-FETCHING ROUTE */
   router.get('/heroes/:heroId', heroes.get);
 
-  //HERO-COLLECTION FETCHING ROUTE
+  /** HERO-COLLECTION FETCHING ROUTE */
   router.get('/heroes', heroes.getAll);
 
-  //HERO-DELETION ROUTE
+  /** HERO-DELETION ROUTE */
   router.delete('/heroes/:heroId', heroes.delete)
 };

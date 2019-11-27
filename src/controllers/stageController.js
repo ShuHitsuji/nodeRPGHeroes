@@ -1,6 +1,9 @@
 const StageService = require('../services/stageService');
 const Joi = require('@hapi/joi');
 
+/**
+ * Joi validation library schema for Stage creation-validation
+ */
 const stageCreateSchema = Joi.object({
   heroId: Joi.string()
     .alphanum()
@@ -14,6 +17,11 @@ const stageCreateSchema = Joi.object({
 
 class StageController {
 
+  /**
+   * Create a new Stage object
+   * @param {heroId: String, monsterId: String} req [Your hero's id, your monster's id] 
+   * @param {created: boolean, stage: Stage object} res [new Stage creation confirmation, new Stage object]
+   */
   async create(req, res) {
     try {
       const value = await stageCreateSchema.validateAsync({ heroId: req.body.heroId, monsterId: req.body.monsterId });
@@ -28,6 +36,11 @@ class StageController {
     }
   }
 
+  /**
+   * Get a specific stage
+   * @param {id: String} req [URL params must contain a valid Stage id]
+   * @param {stage: Stage object} res [Stage object with the specified id]
+   */
   async get(req, res) {
     try {
       const id = req.params.stageId;
@@ -39,6 +52,11 @@ class StageController {
     }
   }
 
+  /**
+   * Get all stages available
+   * @param {*} req [URL Path]
+   * @param {[Stage Object]} res [Array with all stages currently available in repository]
+   */
   async getAll(req, res) {
     try {
       const stages = await StageService.getAll();
@@ -49,6 +67,11 @@ class StageController {
     }
   }
 
+  /**
+   * Delete a specific stage
+   * @param {id: String} req [URL params must contain a valid Stage id]
+   * @param {deleted: boolean} res [deleted Stage object confirmation]
+   */
   async delete(req, res) {
     try {
       const id = req.params.stageId;
@@ -60,6 +83,11 @@ class StageController {
     }
   }
 
+  /**
+   * Enable created Stage combat method
+   * @param {id: String} req [URL params must contain a valid Stage id]
+   * @param {stage: Stage} res [Stage object with the specified id, method will also trigger Stage.combat]
+   */
   async combat(req, res){
     try {
       const id = req.params.stageId;

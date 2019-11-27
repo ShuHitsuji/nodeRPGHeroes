@@ -1,6 +1,9 @@
 const HeroRepository = require('../repositories/heroRepository');
 const Joi = require('@hapi/joi');
 
+/**
+ * Joi validation library schema for Hero creation-validation
+ */
 const heroCreateSchema = Joi.object({
   name: Joi.string()
     .alphanum()
@@ -15,6 +18,12 @@ const heroCreateSchema = Joi.object({
 })
 
 class HeroController {
+
+/**
+ * Create a new Hero object
+ * @param {name: String, type: String} req [Your hero's name, your hero's type] 
+ * @param {created: boolean, hero: Hero object} res [new Hero creation confirmation, new Hero object]
+ */
   async create(req, res) {
     try {
 
@@ -33,6 +42,11 @@ class HeroController {
     }
   }
 
+  /**
+   * Get all hero types available
+   * @param {*} req [Hero type repository query]
+   * @param {types: [HeroType Object]} res [An array with all hero types available]
+   */
   async getTypes(req, res) {
     try {
       const data = await HeroRepository.getHeroTypes();
@@ -43,6 +57,11 @@ class HeroController {
     }
   }
 
+  /**
+   * Get a specific hero
+   * @param {id: String} req [URL params must contain a valid Hero id]
+   * @param {hero: Hero object} res [Hero object with the specified id]
+   */
   async get(req, res) {
     try {
       const id = req.params.heroId;
@@ -54,11 +73,21 @@ class HeroController {
     }
   }
 
+  /**
+   * Get all heroes available
+   * @param {*} req [URL Path]
+   * @param {[Hero Object]} res [Array with all heroes currently available in repository]
+   */
   async getAll(req, res) {
     const heroes = await HeroRepository.getAll();
     res.send(JSON.stringify(heroes))
   }
 
+  /**
+   * Delete a specific hero
+   * @param {id: String} req [URL params must contain a valid Hero id]
+   * @param {deleted: boolean} res [deleted Hero object confirmation]
+   */
   async delete(req, res) {
     try {
       await HeroRepository.delete(req.params.heroId);
