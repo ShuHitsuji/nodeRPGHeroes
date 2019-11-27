@@ -88,10 +88,9 @@ class MonsterController {
     try {
       const id = req.params.monsterId;
       const monster = await MonsterRepository.get(id)
-      const nuMonster = req.body.monster;
-      monster = nuMonster
-      await MonsterRepository.update(id, monster);
-      res.send(JSON.stringify({updated: true, monster}));
+      const nuMonster = req.body;
+      await MonsterRepository.update(id, nuMonster);
+      res.send(JSON.stringify({updated: true, nuMonster}));
     } catch (e) {
       res.send({message: 'Error'})
     }

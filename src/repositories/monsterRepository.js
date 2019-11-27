@@ -36,6 +36,16 @@ class MonsterRepository {
     })
   }
 
+  update(id, data) {
+    return mongoClient(async (err, dbo) => {
+      if (err) {
+        throw err
+      }
+
+      return dbo.collection('monsters').updateOne({_id: new mongoDB.ObjectID(id)}, {$set: {...data}})
+    })
+  }
+
   delete(id) {
     return mongoClient((err, dbo) => {
       if (err) {
